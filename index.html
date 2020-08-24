@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>疫情地图</title>
+  <link rel="stylesheet" href="node_modules/layui-src/dist/css/layui.css">
+  <!-- 引入 ECharts 文件 -->
+  <script src="node_modules/echarts/dist/echarts.min.js"></script>
+  <script src="node_modules/echarts/map/js/china.js"></script>
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/layui-src/dist/layui.js"></script>
+  <script type="text/javascript" src="src/js/index.js"></script>
+</head>
+
+<body>
+  <!-- 下面是地图区 -->
+  <div class="layui-main" id="main" style="width: 600px;height:400px;">
+  </div>
+
+  <!-- 下面是表头部分 -->
+  <div class="layui-main layui-nav">
+    <div class="layui-row" style="height: 30px; line-height: 30px;">
+      <div class="layui-col-md4">地区</div>
+      <div class="layui-col-md2">累计确诊</div>
+      <div class="layui-col-md2">最新确诊</div>
+      <div class="layui-col-md2">治愈</div>
+      <div class="layui-col-md2">死亡</div>
+    </div>
+  </div>
+
+  <!-- 下面是内容区 -->
+  <div class="layui-main">
+    <div class="layui-collapse" lay-accordion>
+      <div id="view"></div>
+    </div>
+  </div>
+  <script id="demo" type="text/html">
+    {{#  layui.each(d.newslist, function(index, item){ }}
+    <div class="layui-colla-item layui-row">
+      <h2 class="layui-colla-title">
+        <span class="layui-col-md4">{{item.provinceName}}</span>
+        <span class="layui-col-md2">{{item.confirmedCount}}</span>
+        <span class="layui-col-md2">{{item.currentConfirmedCount}}</span>
+        <span class="layui-col-md2">{{item.curedCount}}</span>
+        <span class="layui-col-md2">{{item.deadCount}}</span>
+      </h2>
+      <div class="layui-colla-content">
+        <!-- // 某个省的市，比如武汉、孝感、潜江。。。 -->
+        <table class="layui-table" lay-skin="nob">
+          <colgroup>
+            <col width="370">
+            <col width="180">
+            <col width="180">
+            <col width="180">
+            <col>
+          </colgroup>
+          <tbody>
+            {{# layui.each(item.cities, function (i, e) {}}
+            <tr>
+              <td>{{e.cityName}}</td>
+              <td>{{e.confirmedCount}}</td>
+              <td>{{e.currentConfirmedCount}}</td>
+              <td>{{e.curedCount}}</td>
+              <td>{{e.deadCount}}</td>
+            </tr>
+            {{# }); }}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{#  }); }}
+  </script>
+  <!-- 指定图表的配置项和数据 -->
+</body>
+</html>
